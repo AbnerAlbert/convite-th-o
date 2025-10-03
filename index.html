@@ -108,14 +108,6 @@
     </div>
 
     <script>
-        window.addEventListener('load', () => {
-            const card = document.getElementById('invite-card');
-            setTimeout(() => {
-                card.classList.remove('scale-95', 'opacity-0');
-                card.classList.add('scale-100', 'opacity-100');
-            }, 100);
-        });
-
         const confettiContainer = document.getElementById('confetti-container');
         const colors = ['#f44336', '#e91e63', '#9c27b0', '#673ab7', '#3f51b5', '#2196f3', '#03a9f4', '#00bcd4', '#009688', '#4caf50', '#8bc34a', '#cddc39', '#ffeb3b', '#ffc107', '#ff9800'];
 
@@ -143,35 +135,51 @@
         
         backgroundMusic.volume = 0.3; // Volume inicial mais baixo
 
-        let hasInteracted = false;
-
         const playMusic = () => {
-            backgroundMusic.play().then(() => {
-                iconMuted.classList.add('hidden');
-                iconPlaying.classList.remove('hidden');
-            }).catch(error => {
-                console.log("Reprodução automática bloqueada pelo navegador.");
-            });
+            const playPromise = backgroundMusic.play();
+            if (playPromise !== undefined) {
+                playPromise.then(_ => {
+                    // Autoplay começou com sucesso
+                    iconMuted.classList.add('hidden');
+                    iconPlaying.classList.remove('hidden');
+                })
+                .catch(error => {
+                    // Autoplay foi bloqueado
+                    console.log("Autoplay bloqueado pelo navegador. Clique no botão de som para tocar.");
+                    iconMuted.classList.remove('hidden');
+                    iconPlaying.classList.add('hidden');
+                });
+            }
         };
 
-        // Tenta tocar a música na primeira interação do usuário com a página
-        document.body.addEventListener('click', () => {
-            if (!hasInteracted) {
-                playMusic();
-                hasInteracted = true;
-            }
-        }, { once: true });
+        const pauseMusic = () => {
+            backgroundMusic.pause();
+            iconMuted.classList.remove('hidden');
+            iconPlaying.classList.add('hidden');
+        };
 
         musicToggle.addEventListener('click', (e) => {
-            e.stopPropagation(); // Impede que o clique no botão conte como a "primeira interação"
-            hasInteracted = true;
-            if (backgroundMusic.paused) {
+            e.stopPropagation();
+            const isPaused = backgroundMusic.paused;
+            if (isPaused) {
                 playMusic();
             } else {
-                backgroundMusic.pause();
-                iconMuted.classList.remove('hidden');
-                iconPlaying.classList.add('hidden');
+                pauseMusic();
             }
+        });
+
+        window.addEventListener('load', () => {
+            const card = document.getElementById('invite-card');
+            setTimeout(() => {
+                card.classList.remove('scale-95', 'opacity-0');
+                card.classList.add('scale-100', 'opacity-100');
+            }, 100);
+
+            // Tenta tocar a música automaticamente.
+            // Nota: a maioria dos navegadores modernos bloqueia o autoplay com som
+            // até que o usuário interaja com a página (clicando, etc).
+            // Se falhar, o usuário ainda pode usar o botão de controle.
+            playMusic();
         });
     </script>
 </body>
