@@ -7,10 +7,10 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;700&family=Luckiest+Guy&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Baloo 2', cursive;
             overflow: hidden; /* Evita scroll por causa da animação */
         }
         .font-toy {
@@ -23,7 +23,7 @@
         .card-inner {
             transform: rotateY(0deg);
         }
-        /* Efeito de confete caindo */
+        /* Efeito de confete a cair */
         .confetti {
             position: absolute;
             width: 10px;
@@ -44,7 +44,7 @@
     </style>
 </head>
 <body class="bg-sky-400 bg-repeat" style="background-image: url('https://media.geeksforgeeks.org/wp-content/uploads/20240129162908/andy-wallpaper.svg');">
-    <!-- Container para os confetes -->
+    <!-- Contentor para os confetes -->
     <div id="confetti-container"></div>
     
     <!-- Elemento de áudio -->
@@ -69,15 +69,16 @@
                     <h1 class="font-toy text-4xl md:text-5xl text-blue-600 drop-shadow-lg">Ao infinito...</h1>
                     <h2 class="font-toy text-3xl md:text-4xl text-yellow-400 drop-shadow-lg mb-4">E ao 1º aninho!</h2>
 
-                    <p class="text-gray-700 mb-4">
+                    <p class="text-gray-700 mb-4 text-lg">
                         Preparem-se para uma aventura inesquecível! Vamos comemorar o primeiro grande marco na vida do nosso pequeno explorador!
                     </p>
 
+                    <!-- Logo no lugar do nome -->
                     <div class="my-4">
-                        <p class="font-bold text-2xl text-gray-800">Théo</p>
+                        <img src="./logo_theo.png" alt="Logo Théo Story" class="w-64 mx-auto">
                     </div>
 
-                    <div class="space-y-3 text-left w-full max-w-xs mx-auto mb-6">
+                    <div class="space-y-3 text-left w-full max-w-xs mx-auto mb-6 text-lg">
                         <div class="flex items-center">
                             <svg class="w-6 h-6 text-blue-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
                             <p class="text-gray-700"><span class="font-semibold">Data:</span> Sábado, 22 de Nov. de 2025</p>
@@ -176,9 +177,6 @@
             }, 100);
 
             // Tenta tocar a música automaticamente.
-            // Nota: a maioria dos navegadores modernos bloqueia o autoplay com som
-            // até que o usuário interaja com a página (clicando, etc).
-            // Se falhar, o usuário ainda pode usar o botão de controle.
             playMusic();
         });
     </script>
